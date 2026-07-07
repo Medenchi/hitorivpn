@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Объявление · Чат подъезда · Миля 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<style>
+  :root {
+    --ink: #14161c;
+    --ink-2: #3d4250;
+    --ink-3: #6b7180;
+    --line: #d9dce3;
+    --paper: #ffffff;
+    --band: #14161c;
+    --accent: #3b4fd6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #e9ebef;
+    font-family: "Golos Text", system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    width: 210mm; min-height: 297mm; margin: 20px auto;
+    background: var(--paper); padding: 10mm;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0;
+    box-shadow: 0 8px 40px rgba(20,22,28,0.18);
+  }
+  .card { position: relative; padding: 7mm 6mm; display: flex; flex-direction: column; }
+  .card::after { content: ""; position: absolute; inset: 0; border: 1px dashed var(--line); pointer-events: none; }
+  .band { background: var(--band); color: #fff; border-radius: 10px; padding: 9px 10px 11px; text-align: center; }
+  .badge { display: inline-block; border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.06em; padding: 2px 9px; margin-bottom: 5px; }
+  .band h1 { font-size: 15pt; font-weight: 900; letter-spacing: -0.01em; line-height: 1.05; }
+  .band .addr { font-size: 8pt; font-weight: 500; color: rgba(255,255,255,0.82); margin-top: 3px; }
+  .points { list-style: none; margin: 12px 0 4px; }
+  .points li { position: relative; padding-left: 14px; font-size: 8.5pt; line-height: 1.4; color: var(--ink-2); margin-bottom: 8px; }
+  .points li::before { content: ""; position: absolute; left: 0; top: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .points b { color: var(--ink); font-weight: 700; }
+  .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 10px; }
+  .qr-box { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 6px 7px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .qr-box.primary { border-color: var(--ink); }
+  .qr-img { width: 92px; height: 92px; display: grid; place-items: center; }
+  .qr-img img, .qr-img canvas { width: 92px !important; height: 92px !important; }
+  .qr-cap { font-size: 8pt; font-weight: 700; line-height: 1.15; }
+  .qr-sub { font-size: 6.8pt; color: var(--ink-3); margin-top: -3px; }
+  .howto { background: #f4f5f8; border-radius: 9px; padding: 8px 9px; font-size: 7.6pt; line-height: 1.42; color: var(--ink-2); }
+  .howto b { color: var(--ink); font-weight: 700; }
+  .foot { margin-top: auto; padding-top: 9px; text-align: center; }
+  .foot .only { font-size: 7pt; color: var(--ink-3); }
+  .foot .keep { font-size: 8.5pt; font-weight: 800; letter-spacing: 0.01em; margin-top: 3px; }
+  @page { size: A4; margin: 8mm; }
+  @media print {
+    html, body { background: #fff; }
+    .sheet { width: auto; min-height: auto; margin: 0; padding: 0; box-shadow: none; grid-template-rows: 1fr 1fr; height: 281mm; }
+    .card::after { border-color: #c2c6cf; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .toolbar { display: none !important; }
+  }
+  .toolbar { max-width: 210mm; margin: 20px auto 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); }
+  .toolbar button { font-family: inherit; font-weight: 600; font-size: 13px; background: var(--ink); color: #fff; border: none; padding: 9px 16px; border-radius: 9px; cursor: pointer; }
+  .toolbar code { background: #fff; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--line); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button onclick="window.print()">Печать / сохранить в PDF</button>
+  <span>Ссылки меняются в начале тега &lt;script&gt;: <code>SITE_URL</code> и <code>TG_URL</code></span>
+</div>
+<div class="sheet" id="sheet"></div>
+<template id="card-tpl">
+  <div class="card">
+    <div class="band">
+      <div class="badge">БЕЗ РЕКЛАМЫ И СПАМА</div>
+      <h1>ЧАТ НАШЕГО ПОДЪЕЗДА</h1>
+      <div class="addr">ул. Авиаконструктора Миля, 19 · 1-й подъезд</div>
+    </div>
+    <ul class="points">
+      <li><b>Общение и взаимопомощь:</b> знакомимся с соседями, решаем мелкие вопросы.</li>
+      <li><b>Сарафанное радио:</b> делимся контактами мастеров, услугами и советами.</li>
+      <li><b>Благоустройство:</b> обсуждаем и предлагаем, как улучшить наш дом.</li>
+    </ul>
+    <div class="qr-row">
+      <div class="qr-box">
+        <div class="qr-img qr-site"></div>
+        <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
+      </div>
+      <div class="qr-box primary">
+        <div class="qr-img qr-tg"></div>
+        <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
+      </div>
+    </div>
+    <div class="howto"><b>Как войти:</b> наведите камеру на <b>правый</b> QR — откроется чат. Если Telegram висит на бесконечной загрузке, отсканируйте <b>левый</b> код: там инструкция и рабочий VPN.</div>
+    <div class="foot">
+      <div class="only">Только для жителей 1-го подъезда</div>
+      <div class="keep">СОСЕДИ, ПОЖАЛУЙСТА, НЕ СРЫВАЙТЕ ОБЪЯВЛЕНИЕ!</div>
+    </div>
+  </div>
+</template>
+<script>
+  // ====== МЕНЯЙ ЗДЕСЬ ======
+  const SITE_URL = "https://medenchi.github.io/hitorivpn/";
+  const TG_URL   = "https://t.me/"; // <-- вставь прямую ссылку на чат подъезда
+  // =========================
+  const sheet = document.getElementById('sheet');
+  const tpl = document.getElementById('card-tpl');
+  for (let i = 0; i < 4; i++) sheet.appendChild(tpl.content.cloneNode(true));
+  function makeQR(el, text) {
+    if (!el) return;
+    new QRCode(el, { text: text, width: 92, height: 92, colorDark: "#14161c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+  }
+  document.querySelectorAll('.qr-site').forEach(el => makeQR(el, SITE_URL));
+  document.querySelectorAll('.qr-tg').forEach(el => makeQR(el, TG_URL));
+</script>
+</body>
+</html>
