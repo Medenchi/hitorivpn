@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HitoriVPN · Подключение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --paper: oklch(0.98 0.006 60);
+    --paper-2: oklch(0.955 0.007 60);
+    --paper-3: oklch(0.925 0.008 60);
+    --ink: oklch(0.24 0.02 45);
+    --ink-2: oklch(0.44 0.02 45);
+    --ink-3: oklch(0.58 0.015 45);
+    --line: oklch(0.88 0.009 60);
+    --line-2: oklch(0.82 0.01 60);
+    --accent: oklch(0.605 0.19 32);
+    --accent-press: oklch(0.53 0.17 32);
+    --accent-soft: oklch(0.93 0.04 40);
+    --ok: oklch(0.6 0.13 150);
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+    --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Golos Text", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { text-wrap: balance; line-height: 1.15; }
+  p { text-wrap: pretty; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--s5); }
+  header { padding: var(--s7) 0 var(--s6); border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: center; gap: var(--s3); }
+  .mark {
+    width: 46px; height: 46px; flex: none;
+    background: var(--accent);
+    border-radius: 13px;
+    display: grid; place-items: center;
+    color: var(--paper);
+    font-weight: 700; font-size: 1.5rem;
+    line-height: 1;
+  }
+  .brand-name { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; }
+  .brand-sub { font-size: 0.8rem; color: var(--ink-3); font-family: "Martian Mono", monospace; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(1.9rem, 6vw, 2.9rem); font-weight: 800; letter-spacing: -0.025em; margin-top: var(--s6); }
+  .lead { font-size: 1.12rem; color: var(--ink-2); max-width: 60ch; margin-top: var(--s4); }
+  .rail { display: flex; gap: var(--s5); margin-top: var(--s6); flex-wrap: wrap; }
+  .rail-item { display: flex; gap: var(--s3); align-items: flex-start; flex: 1 1 180px; }
+  .rail-num {
+    width: 28px; height: 28px; flex: none;
+    border: 1.5px solid var(--ink); border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 0.85rem;
+    font-family: "Martian Mono", monospace;
+  }
+  .rail-item p { font-size: 0.95rem; color: var(--ink-2); }
+  .rail-item strong { color: var(--ink); font-weight: 600; }
+  section { padding: var(--s8) 0; }
+  .kicker {
+    font-family: "Martian Mono", monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  h2 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-top: var(--s3); }
+  .tabs {
+    display: flex; gap: var(--s2);
+    margin-top: var(--s5);
+    padding: var(--s1);
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow-x: auto;
+  }
+  .tab {
+    flex: 1 1 auto; white-space: nowrap;
+    border: none; background: transparent;
+    font-family: inherit; font-size: 0.92rem; font-weight: 600;
+    color: var(--ink-2);
+    padding: var(--s3) var(--s4);
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+    transition: background 0.18s var(--ease-out), color 0.18s var(--ease-out);
+  }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+  .tab i { width: 18px; height: 18px; }
+  .panel { margin-top: var(--s6); }
+  .panel[hidden] { display: none; }
+  .panel-intro { color: var(--ink-2); font-size: 1rem; margin-bottom: var(--s5); max-width: 60ch; }
+  .panel-intro b { color: var(--ink); font-weight: 600; }
+  .app { border: 1px solid var(--line); border-radius: 18px; padding: var(--s5); background: var(--paper); margin-bottom: var(--s4); }
+  .app-head { display: flex; align-items: center; gap: var(--s4); }
+  .app-icon {
+    width: 56px; height: 56px; flex: none;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    color: #fff; font-weight: 700; font-size: 1.05rem;
+    font-family: "Martian Mono", monospace;
+    letter-spacing: -0.03em;
+  }
+  .ic-tun { background: oklch(0.55 0.16 250); }
+  .ic-hid { background: oklch(0.52 0.19 300); }
+  .ic-str { background: oklch(0.4 0.09 250); }
+  .ic-box { background: oklch(0.55 0.13 175); }
+  .ic-n   { background: oklch(0.38 0.02 260); }
+  .app-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+  .app-note { font-size: 0.85rem; color: var(--ink-3); margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.62rem; letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 7px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent-press);
+    font-weight: 600; margin-left: var(--s2); vertical-align: middle;
+  }
+  .actions { display: flex; gap: var(--s3); margin-top: var(--s5); flex-wrap: wrap; }
+  .btn {
+    flex: 1 1 200px;
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    padding: var(--s3) var(--s4);
+    border-radius: 11px;
+    cursor: pointer; text-decoration: none;
+    border: 1.5px solid var(--line-2);
+    color: var(--ink); background: var(--paper);
+    transition: transform 0.12s var(--ease-out), background 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+  }
+  .btn i { width: 18px; height: 18px; }
+  .btn:hover { border-color: var(--ink); }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-press); border-color: var(--accent-press); }
+  .step-hint { font-size: 0.82rem; color: var(--ink-3); margin-top: var(--s3); display: flex; align-items: center; gap: var(--s2); }
+  .step-hint i { width: 15px; height: 15px; flex: none; }
+  .copy-block { background: var(--ink); color: var(--paper); border-radius: 18px; padding: var(--s6); margin-top: var(--s5); }
+  .copy-block h3 { font-size: 1.2rem; font-weight: 700; }
+  .copy-block p { color: oklch(0.8 0.01 60); font-size: 0.95rem; margin-top: var(--s2); }
+  .copy-field { display: flex; gap: var(--s2); margin-top: var(--s5); flex-wrap: wrap; }
+  .copy-url {
+    flex: 1 1 260px;
+    background: oklch(0.32 0.02 45);
+    border: 1px solid oklch(0.42 0.02 45);
+    border-radius: 11px;
+    padding: var(--s3) var(--s4);
+    color: var(--paper);
+    font-family: "Martian Mono", monospace;
+    font-size: 0.78rem;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    display: flex; align-items: center;
+  }
+  .copy-btn {
+    flex: none;
+    background: var(--paper); color: var(--ink);
+    border: none; border-radius: 11px;
+    padding: 0 var(--s5);
+    font-family: inherit; font-weight: 600; font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: var(--s2);
+    transition: transform 0.12s var(--ease-out), background 0.18s var(--ease-out);
+  }
+  .copy-btn i { width: 16px; height: 16px; }
+  .copy-btn:active { transform: translateY(1px); }
+  .copy-btn.done { background: var(--ok); color: #fff; }
+  .faq { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); padding: var(--s5) 0; }
+  summary { font-weight: 600; font-size: 1.02rem; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
+  summary::-webkit-details-marker { display: none; }
+  summary i { width: 20px; height: 20px; color: var(--ink-3); transition: transform 0.25s var(--ease-out); flex: none; }
+  details[open] summary i { transform: rotate(45deg); }
+  details p { color: var(--ink-2); font-size: 0.95rem; margin-top: var(--s3); max-width: 62ch; }
+  details b { color: var(--ink); font-weight: 600; }
+  footer { border-top: 1px solid var(--line); padding: var(--s7) 0 var(--s8); color: var(--ink-3); font-size: 0.85rem; }
+  footer .brand { margin-bottom: var(--s4); }
+  footer a { color: var(--ink-2); }
+  ::selection { background: var(--accent-soft); color: var(--accent-press); }
+  @media (max-width: 560px) {
+    section { padding: var(--s7) 0; }
+    .actions .btn { flex: 1 1 100%; }
+    .copy-btn { flex: 1 1 100%; justify-content: center; padding: var(--s3); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">独</div>
+      <div>
+        <div class="brand-name">HitoriVPN</div>
+        <div class="brand-sub">чат подъезда</div>
+      </div>
+    </div>
+    <h1>Подключение за пару минут</h1>
+    <p class="lead">Пошаговая инструкция, как добавить подписку в приложение. Выбери своё устройство, установи приложение и нажми кнопку добавления, всё подхватится само.</p>
+    <div class="rail">
+      <div class="rail-item"><div class="rail-num">1</div><p><strong>Установи приложение</strong><br>под свою систему</p></div>
+      <div class="rail-item"><div class="rail-num">2</div><p><strong>Добавь подписку</strong><br>одной кнопкой</p></div>
+      <div class="rail-item"><div class="rail-num">3</div><p><strong>Включи</strong><br>и пользуйся</p></div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <div class="kicker">Выбери устройство</div>
+    <h2>Инструкция под вашу систему</h2>
+    <div class="tabs" role="tablist" aria-label="Платформа">
+      <button class="tab" role="tab" aria-selected="true" data-panel="android"><i data-lucide="smartphone"></i>Android</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="ios"><i data-lucide="apple"></i>iPhone</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="windows"><i data-lucide="monitor"></i>Windows</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="mac"><i data-lucide="laptop"></i>Mac</button>
+    </div>
+    <div class="panel" id="android">
+      <p class="panel-intro">Рекомендуем <b>v2RayTun</b>: простое и стабильно работает в РФ. Если не зайдёт, есть запасной вариант <b>Hiddify</b>.</p>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-tun">TUN</div><div><div class="app-title">v2RayTun <span class="badge">рекомендуем</span></div><div class="app-note">Play Market · бесплатно</div></div></div>
+        <div class="actions"><a class="btn" href="https://play.google.com/store/apps/details?id=com.v2raytun.android" target="_blank" rel="noopener"><i data-lucide="download"></i>Установить</a><a class="btn btn-primary" href="v2raytun://import/https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c#HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+        <div class="step-hint"><i data-lucide="info"></i>Кнопку «Добавить» жмите уже после установки приложения.</div>
+      </div>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-hid">HID</div><div><div class="app-title">Hiddify</div><div class="app-note">Play Market · бесплатно · запасной</div></div></div>
+        <div class="actions"><a class="btn" href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" rel="noopener"><i data-lucide="download"></i>Установить</a><a class="btn btn-primary" href="hiddify://import/https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c#HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+      </div>
+    </div>
+    <div class="panel" id="ios" hidden>
+      <p class="panel-intro">Рекомендуем <b>Streisand</b>: бесплатно и без лишних настроек. Альтернатива, <b>V2Box</b>.</p>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-str">STR</div><div><div class="app-title">Streisand <span class="badge">рекомендуем</span></div><div class="app-note">App Store · бесплатно</div></div></div>
+        <div class="actions"><a class="btn" href="https://apps.apple.com/app/streisand/id6450534064" target="_blank" rel="noopener"><i data-lucide="download"></i>Установить</a><a class="btn btn-primary" href="streisand://import/https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c#HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+        <div class="step-hint"><i data-lucide="info"></i>Кнопку «Добавить» жмите уже после установки приложения.</div>
+      </div>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-box">BOX</div><div><div class="app-title">V2Box</div><div class="app-note">App Store · бесплатно · запасной</div></div></div>
+        <div class="actions"><a class="btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446814690" target="_blank" rel="noopener"><i data-lucide="download"></i>Установить</a><a class="btn btn-primary" href="v2box://install-sub?url=https%3A%2F%2Fapi.scamhost.online%2Fsub%2Fuser%2Fefb5673b-fa23-4c7d-88fe-297d2260410c&name=HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+      </div>
+    </div>
+    <div class="panel" id="windows" hidden>
+      <p class="panel-intro">На компьютере проще всего <b>Hiddify</b>: скачайте установщик с официального GitHub, откройте и добавьте подписку кнопкой.</p>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-hid">HID</div><div><div class="app-title">Hiddify для Windows <span class="badge">рекомендуем</span></div><div class="app-note">GitHub · файл Setup .exe</div></div></div>
+        <div class="actions"><a class="btn" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener"><i data-lucide="download"></i>Скачать</a><a class="btn btn-primary" href="hiddify://import/https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c#HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+        <div class="step-hint"><i data-lucide="info"></i>В релизе ищите файл вида <b>Hiddify-Windows-Setup-x64.exe</b>.</div>
+      </div>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-n">v2N</div><div><div class="app-title">v2rayN</div><div class="app-note">GitHub · для продвинутых · запасной</div></div></div>
+        <div class="actions"><a class="btn" href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener"><i data-lucide="download"></i>Скачать</a></div>
+        <div class="step-hint"><i data-lucide="info"></i>Подписку добавьте вручную: скопируйте ссылку ниже и вставьте в «Подписки → Добавить».</div>
+      </div>
+    </div>
+    <div class="panel" id="mac" hidden>
+      <p class="panel-intro">На Mac рекомендуем <b>Hiddify</b>. Если у вас Apple Silicon (M1 и новее), подойдёт и <b>V2Box</b> из App Store.</p>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-hid">HID</div><div><div class="app-title">Hiddify для macOS <span class="badge">рекомендуем</span></div><div class="app-note">GitHub · файл .dmg</div></div></div>
+        <div class="actions"><a class="btn" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener"><i data-lucide="download"></i>Скачать</a><a class="btn btn-primary" href="hiddify://import/https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c#HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+        <div class="step-hint"><i data-lucide="info"></i>В релизе ищите файл вида <b>Hiddify-MacOS.dmg</b>.</div>
+      </div>
+      <div class="app">
+        <div class="app-head"><div class="app-icon ic-box">BOX</div><div><div class="app-title">V2Box</div><div class="app-note">App Store · Apple Silicon · запасной</div></div></div>
+        <div class="actions"><a class="btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446814690" target="_blank" rel="noopener"><i data-lucide="download"></i>Установить</a><a class="btn btn-primary" href="v2box://install-sub?url=https%3A%2F%2Fapi.scamhost.online%2Fsub%2Fuser%2Fefb5673b-fa23-4c7d-88fe-297d2260410c&name=HitoriVPN"><i data-lucide="plus"></i>Добавить подписку</a></div>
+      </div>
+    </div>
+    <div class="copy-block">
+      <h3>Кнопка не сработала?</h3>
+      <p>Скопируйте ссылку подписки и вставьте её вручную: в приложении откройте «Подписки» → «Добавить» и вставьте.</p>
+      <div class="copy-field">
+        <div class="copy-url" id="subUrl">https://api.scamhost.online/sub/user/efb5673b-fa23-4c7d-88fe-297d2260410c</div>
+        <button class="copy-btn" id="copyBtn"><i data-lucide="copy"></i>Копировать</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">Частые вопросы</div>
+    <h2>Если что-то пошло не так</h2>
+    <div class="faq">
+      <details><summary>Нажал «Добавить», ничего не открылось <i data-lucide="plus"></i></summary><p>Значит приложение ещё не установлено, либо телефон не понял ссылку. Сначала установите приложение из первой кнопки, затем вернитесь сюда и нажмите «Добавить». Если снова тишина, скопируйте ссылку внизу страницы и добавьте её вручную.</p></details>
+      <details><summary>Подписка добавилась, но нет серверов <i data-lucide="plus"></i></summary><p>Откройте подписку в приложении и нажмите <b>обновить</b> (значок круговой стрелки или «Update subscription»). Серверы подтянутся из ссылки. Держите автообновление включённым, чтобы конфиги не устаревали.</p></details>
+      <details><summary>Подключился, но интернет не работает <i data-lucide="plus"></i></summary><p>Попробуйте другой сервер из списка: не все одинаково быстрые. Если не помогло, выключите и снова включите подключение. На телефоне разрешите приложению создавать VPN-соединение, когда оно спросит.</p></details>
+      <details><summary>Насколько это безопасно <i data-lucide="plus"></i></summary><p>Ссылка подписки, это ваш личный доступ. <b>Не передавайте её посторонним</b>: по ней подключаются к вашим серверам. Делитесь только внутри чата подъезда.</p></details>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="brand"><div class="mark" style="width:36px;height:36px;font-size:1.15rem;border-radius:10px;">独</div><div><div class="brand-name" style="font-size:1rem;">HitoriVPN</div></div></div>
+    <p>Инструкция для соседей по подъезду. Вопросы, пишите в чат.</p>
+  </div>
+</footer>
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+      tab.setAttribute('aria-selected', 'true');
+      const target = tab.dataset.panel;
+      panels.forEach(p => p.hidden = (p.id !== target));
+    });
+  });
+  const copyBtn = document.getElementById('copyBtn');
+  const subUrl = document.getElementById('subUrl').textContent.trim();
+  copyBtn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(subUrl); }
+    catch (e) {
+      const r = document.createRange();
+      r.selectNode(document.getElementById('subUrl'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(r);
+      document.execCommand('copy');
+    }
+    copyBtn.classList.add('done');
+    copyBtn.innerHTML = '<i data-lucide="check"></i>Скопировано';
+    if (window.lucide) lucide.createIcons();
+    setTimeout(() => {
+      copyBtn.classList.remove('done');
+      copyBtn.innerHTML = '<i data-lucide="copy"></i>Копировать';
+      if (window.lucide) lucide.createIcons();
+    }, 2000);
+  });
+  if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>
