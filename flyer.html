@@ -31,7 +31,7 @@
   .qr-sub { font-size:6.5pt; color:var(--ink-3); margin-top:-2px; }
   .howto { background:#f4f5f8; border-radius:8px; padding:6px 8px; font-size:7.2pt; line-height:1.36; color:var(--ink-2); }
   .howto b { color:var(--ink); font-weight:700; }
-  .foot { margin-top:auto; padding-top:6px; text-align:center; }
+  .foot { margin-top:auto; padding-top:6px; text-align:center; min-height:24px; }
   .foot .only { font-size:6.8pt; color:var(--ink-3); }
   .foot .keep { font-size:8pt; font-weight:800; letter-spacing:0.01em; margin-top:2px; }
   @page { size:A4; margin:0; }
@@ -50,42 +50,49 @@
 <body>
 <div class="toolbar">
   <button onclick="window.print()">Печать / сохранить в PDF</button>
-  <span>Оба QR — картинки из репы: <code>site-qr.png</code> и <code>tg-qr.png</code>. Большой А4 — <code>poster.html</code>.</span>
+  <span>4 версии подписи на одном листе. QR — <code>site-qr.png</code> и <code>tg-qr.png</code>.</span>
 </div>
 <div class="sheet" id="sheet"></div>
-<template id="card-tpl">
-  <div class="card">
-    <div class="band">
-      <div class="badge">БЕЗ РЕКЛАМЫ И СПАМА</div>
-      <h1>ЧАТ НАШЕГО ПОДЪЕЗДА</h1>
-      <div class="addr">ул. Авиаконструктора Миля, 19 · 1-й подъезд</div>
-    </div>
-    <ul class="points">
-      <li><b>Общение и взаимопомощь:</b> знакомимся с соседями, решаем мелкие вопросы.</li>
-      <li><b>Сарафанное радио:</b> делимся контактами мастеров, услугами и советами.</li>
-      <li><b>Благоустройство:</b> обсуждаем и предлагаем, как улучшить наш дом.</li>
-    </ul>
-    <div class="qr-row">
-      <div class="qr-box">
-        <div class="qr-img"><img src="site-qr.png" alt="QR сайт"></div>
-        <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
-      </div>
-      <div class="qr-box primary">
-        <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
-        <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
-      </div>
-    </div>
-    <div class="howto"><b>Как войти:</b> наведите камеру на <b>правый</b> QR — откроется чат. Если Telegram висит на бесконечной загрузке, отсканируйте <b>левый</b> код: там инструкция и рабочий VPN.</div>
-    <div class="foot">
-      <div class="only">Только для жителей 1-го подъезда</div>
-      <div class="keep">СОСЕДИ, ПОЖАЛУЙСТА, НЕ СРЫВАЙТЕ ОБЪЯВЛЕНИЕ!</div>
-    </div>
-  </div>
-</template>
 <script>
+  // 4 версии нижней подписи, по одной на каждую карточку листа
+  const VARIANTS = [
+    { only: "Только для жителей 1-го подъезда", keep: "СОСЕДИ, ПОЖАЛУЙСТА, НЕ СРЫВАЙТЕ ОБЪЯВЛЕНИЕ!" },
+    { only: "Только для жителей 1-го подъезда", keep: "ПОЖАЛУЙСТА, НЕ ВЫБРАСЫВАЙТЕ ОБЪЯВЛЕНИЕ" },
+    { only: "Только для жителей 1-го подъезда", keep: "" },
+    { only: "", keep: "" }
+  ];
   const sheet = document.getElementById('sheet');
-  const tpl = document.getElementById('card-tpl');
-  for (let i = 0; i < 4; i++) sheet.appendChild(tpl.content.cloneNode(true));
+  VARIANTS.forEach(v => {
+    const footHtml = (v.only || v.keep)
+      ? `<div class="foot">${v.only ? `<div class="only">${v.only}</div>` : ""}${v.keep ? `<div class="keep">${v.keep}</div>` : ""}</div>`
+      : `<div class="foot"></div>`;
+    sheet.insertAdjacentHTML('beforeend', `
+      <div class="card">
+        <div class="band">
+          <div class="badge">БЕЗ РЕКЛАМЫ И СПАМА</div>
+          <h1>ЧАТ НАШЕГО ПОДЪЕЗДА</h1>
+          <div class="addr">ул. Авиаконструктора Миля, 19 · 1-й подъезд</div>
+        </div>
+        <ul class="points">
+          <li><b>Общение и взаимопомощь:</b> знакомимся с соседями, решаем мелкие вопросы.</li>
+          <li><b>Сарафанное радио:</b> делимся контактами мастеров, услугами и советами.</li>
+          <li><b>Благоустройство:</b> обсуждаем и предлагаем, как улучшить наш дом.</li>
+        </ul>
+        <div class="qr-row">
+          <div class="qr-box">
+            <div class="qr-img"><img src="site-qr.png" alt="QR сайт"></div>
+            <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
+          </div>
+          <div class="qr-box primary">
+            <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
+            <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
+          </div>
+        </div>
+        <div class="howto"><b>Как войти:</b> наведите камеру на <b>правый</b> QR — откроется чат. Если Telegram висит на бесконечной загрузке, отсканируйте <b>левый</b> код: там инструкция и рабочий VPN.</div>
+        ${footHtml}
+      </div>
+    `);
+  });
 </script>
 </body>
 </html>
