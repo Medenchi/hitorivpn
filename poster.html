@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Большое объявление А4 · Чат подъезда · Миля 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#14161c; --ink-2:#3d4250; --ink-3:#6b7180; --line:#d9dce3; --paper:#ffffff; --band:#14161c; --accent:#3b4fd6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { background:#e9ebef; font-family:"Golos Text", system-ui, sans-serif; color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .page { width:210mm; height:297mm; margin:20px auto; background:var(--paper); padding:20mm 18mm; display:flex; flex-direction:column; box-shadow:0 8px 40px rgba(20,22,28,0.18); }
+  .band { background:var(--band); color:#fff; border-radius:18px; padding:24px 20px 26px; text-align:center; }
+  .badge { display:inline-block; border:1.5px solid rgba(255,255,255,0.55); border-radius:999px; font-size:12pt; font-weight:700; letter-spacing:0.06em; padding:5px 18px; margin-bottom:12px; }
+  .band h1 { font-size:38pt; font-weight:900; letter-spacing:-0.02em; line-height:1.02; }
+  .band .addr { font-size:15pt; font-weight:500; color:rgba(255,255,255,0.85); margin-top:8px; }
+  .points { list-style:none; margin:32px 0 8px; }
+  .points li { position:relative; padding-left:28px; font-size:15pt; line-height:1.4; color:var(--ink-2); margin-bottom:16px; }
+  .points li::before { content:""; position:absolute; left:0; top:9px; width:11px; height:11px; border-radius:50%; background:var(--accent); }
+  .points b { color:var(--ink); font-weight:700; }
+  .qr-row { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:28px 0 24px; }
+  .qr-box { border:2px solid var(--line); border-radius:18px; padding:22px 16px 18px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .qr-box.primary { border-color:var(--ink); }
+  .qr-img { width:230px; height:230px; display:grid; place-items:center; }
+  .qr-img img { width:230px; height:230px; object-fit:contain; display:block; }
+  .qr-cap { font-size:16pt; font-weight:700; line-height:1.12; }
+  .qr-sub { font-size:11.5pt; color:var(--ink-3); margin-top:-4px; }
+  .howto { background:#f4f5f8; border-radius:14px; padding:18px 20px; font-size:13pt; line-height:1.5; color:var(--ink-2); }
+  .howto b { color:var(--ink); font-weight:700; }
+  .foot { margin-top:auto; padding-top:22px; text-align:center; }
+  .foot .only { font-size:12pt; color:var(--ink-3); }
+  .foot .keep { font-size:16pt; font-weight:800; letter-spacing:0.01em; margin-top:6px; }
+  @page { size:A4; margin:0; }
+  @media print {
+    html, body { background:#fff; }
+    .page { width:210mm; height:297mm; margin:0; box-shadow:none; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .toolbar { display:none !important; }
+  }
+  .toolbar { max-width:210mm; margin:20px auto 0; display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-size:13px; color:var(--ink-2); }
+  .toolbar button { font-family:inherit; font-weight:600; font-size:13px; background:var(--ink); color:#fff; border:none; padding:9px 16px; border-radius:9px; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button onclick="window.print()">Печать / сохранить в PDF</button>
+  <span>Большое объявление на весь лист А4 (для ящиков).</span>
+</div>
+<div class="page">
+  <div class="band">
+    <div class="badge">БЕЗ РЕКЛАМЫ И СПАМА</div>
+    <h1>ЧАТ НАШЕГО ПОДЪЕЗДА</h1>
+    <div class="addr">ул. Авиаконструктора Миля, 19 · 1-й подъезд</div>
+  </div>
+  <ul class="points">
+    <li><b>Общение и взаимопомощь:</b> знакомимся с соседями, решаем мелкие вопросы.</li>
+    <li><b>Сарафанное радио:</b> делимся контактами мастеров, услугами и советами.</li>
+    <li><b>Благоустройство:</b> обсуждаем и предлагаем, как улучшить наш дом.</li>
+  </ul>
+  <div class="qr-row">
+    <div class="qr-box">
+      <div class="qr-img"><img src="site-qr.png" alt="QR сайт"></div>
+      <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
+    </div>
+    <div class="qr-box primary">
+      <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
+      <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
+    </div>
+  </div>
+  <div class="howto"><b>Как войти:</b> наведите камеру телефона на <b>правый</b> QR — откроется чат подъезда. Если Telegram висит на бесконечной загрузке, отсканируйте <b>левый</b> код: там инструкция и рабочий VPN.</div>
+  <div class="foot">
+    <div class="only">Только для жителей 1-го подъезда</div>
+    <div class="keep">СОСЕДИ, ПОЖАЛУЙСТА, НЕ СРЫВАЙТЕ ОБЪЯВЛЕНИЕ!</div>
+  </div>
+</div>
+</body>
+</html>
