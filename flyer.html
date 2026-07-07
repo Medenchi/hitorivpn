@@ -25,37 +25,39 @@
     -webkit-font-smoothing: antialiased;
   }
   .sheet {
-    width: 210mm; min-height: 297mm; margin: 20px auto;
-    background: var(--paper); padding: 10mm;
+    width: 210mm; height: 297mm; margin: 20px auto;
+    background: var(--paper); padding: 8mm;
     display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0;
     box-shadow: 0 8px 40px rgba(20,22,28,0.18);
   }
-  .card { position: relative; padding: 7mm 6mm; display: flex; flex-direction: column; }
+  .card { position: relative; padding: 5mm 5mm; display: flex; flex-direction: column; overflow: hidden; }
   .card::after { content: ""; position: absolute; inset: 0; border: 1px dashed var(--line); pointer-events: none; }
-  .band { background: var(--band); color: #fff; border-radius: 10px; padding: 9px 10px 11px; text-align: center; }
-  .badge { display: inline-block; border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.06em; padding: 2px 9px; margin-bottom: 5px; }
-  .band h1 { font-size: 15pt; font-weight: 900; letter-spacing: -0.01em; line-height: 1.05; }
-  .band .addr { font-size: 8pt; font-weight: 500; color: rgba(255,255,255,0.82); margin-top: 3px; }
-  .points { list-style: none; margin: 12px 0 4px; }
-  .points li { position: relative; padding-left: 14px; font-size: 8.5pt; line-height: 1.4; color: var(--ink-2); margin-bottom: 8px; }
-  .points li::before { content: ""; position: absolute; left: 0; top: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .band { background: var(--band); color: #fff; border-radius: 9px; padding: 7px 9px 8px; text-align: center; }
+  .badge { display: inline-block; border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; font-size: 7pt; font-weight: 700; letter-spacing: 0.05em; padding: 1px 8px; margin-bottom: 4px; }
+  .band h1 { font-size: 13.5pt; font-weight: 900; letter-spacing: -0.01em; line-height: 1.05; }
+  .band .addr { font-size: 7.5pt; font-weight: 500; color: rgba(255,255,255,0.82); margin-top: 2px; }
+  .points { list-style: none; margin: 8px 0 2px; }
+  .points li { position: relative; padding-left: 13px; font-size: 8pt; line-height: 1.32; color: var(--ink-2); margin-bottom: 5px; }
+  .points li::before { content: ""; position: absolute; left: 0; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
   .points b { color: var(--ink); font-weight: 700; }
-  .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 10px; }
-  .qr-box { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 6px 7px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 4px 0 7px; }
+  .qr-box { border: 1.5px solid var(--line); border-radius: 9px; padding: 6px 5px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .qr-box.primary { border-color: var(--ink); }
-  .qr-img { width: 96px; height: 96px; display: grid; place-items: center; }
-  .qr-img img { width: 96px; height: 96px; object-fit: contain; display: block; }
-  .qr-cap { font-size: 8pt; font-weight: 700; line-height: 1.15; }
-  .qr-sub { font-size: 6.8pt; color: var(--ink-3); margin-top: -3px; }
-  .howto { background: #f4f5f8; border-radius: 9px; padding: 8px 9px; font-size: 7.6pt; line-height: 1.42; color: var(--ink-2); }
+  .qr-img { width: 100px; height: 100px; display: grid; place-items: center; overflow: hidden; border-radius: 4px; }
+  .qr-img img { width: 100px; height: 100px; object-fit: contain; display: block; }
+  /* ТГ-код приходит с широкими белыми полями — увеличиваем и подрезаем края */
+  .qr-img.big img { width: 132px; height: 132px; }
+  .qr-cap { font-size: 7.5pt; font-weight: 700; line-height: 1.12; }
+  .qr-sub { font-size: 6.5pt; color: var(--ink-3); margin-top: -2px; }
+  .howto { background: #f4f5f8; border-radius: 8px; padding: 6px 8px; font-size: 7.2pt; line-height: 1.36; color: var(--ink-2); }
   .howto b { color: var(--ink); font-weight: 700; }
-  .foot { margin-top: auto; padding-top: 9px; text-align: center; }
-  .foot .only { font-size: 7pt; color: var(--ink-3); }
-  .foot .keep { font-size: 8.5pt; font-weight: 800; letter-spacing: 0.01em; margin-top: 3px; }
-  @page { size: A4; margin: 8mm; }
+  .foot { margin-top: auto; padding-top: 6px; text-align: center; }
+  .foot .only { font-size: 6.8pt; color: var(--ink-3); }
+  .foot .keep { font-size: 8pt; font-weight: 800; letter-spacing: 0.01em; margin-top: 2px; }
+  @page { size: A4; margin: 0; }
   @media print {
     html, body { background: #fff; }
-    .sheet { width: auto; min-height: auto; margin: 0; padding: 0; box-shadow: none; grid-template-rows: 1fr 1fr; height: 281mm; }
+    .sheet { width: 210mm; height: 297mm; margin: 0; box-shadow: none; }
     .card::after { border-color: #c2c6cf; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .toolbar { display: none !important; }
@@ -68,7 +70,7 @@
 <body>
 <div class="toolbar">
   <button onclick="window.print()">Печать / сохранить в PDF</button>
-  <span>Оба QR — картинки из репы: <code>site-qr.png</code> (сайт) и <code>tg-qr.png</code> (Telegram). PDF собирается сам через GitHub Actions.</span>
+  <span>Оба QR — картинки из репы: <code>site-qr.png</code> и <code>tg-qr.png</code>. PDF собирается сам через GitHub Actions.</span>
 </div>
 <div class="sheet" id="sheet"></div>
 <template id="card-tpl">
@@ -89,7 +91,7 @@
         <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
       </div>
       <div class="qr-box primary">
-        <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
+        <div class="qr-img big"><img src="tg-qr.png" alt="QR Telegram"></div>
         <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
       </div>
     </div>
