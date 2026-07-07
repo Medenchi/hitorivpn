@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чат подъезда · QR · Миля 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#14161c; --ink-2:#3d4250; --ink-3:#6b7180; --line:#d9dce3; --paper:#ffffff; --band:#14161c; --accent:#3b4fd6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { background:#e9ebef; font-family:"Golos Text", system-ui, sans-serif; color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .page { width:210mm; height:297mm; margin:20px auto; background:var(--paper); padding:22mm 20mm; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 8px 40px rgba(20,22,28,0.18); }
+  .badge { display:inline-block; background:var(--band); color:#fff; border-radius:999px; font-size:13pt; font-weight:700; letter-spacing:0.06em; padding:8px 22px; }
+  h1 { font-size:46pt; font-weight:900; letter-spacing:-0.025em; line-height:1.0; margin-top:20px; }
+  .addr { font-size:16pt; color:var(--ink-2); font-weight:500; margin-top:12px; }
+  .lead { font-size:17pt; color:var(--ink-2); margin-top:28px; max-width:24ch; line-height:1.35; }
+  .lead b { color:var(--ink); font-weight:700; }
+  .qr-row { display:grid; grid-template-columns:1fr 1fr; gap:34px; margin:auto 0; width:100%; }
+  .qr-box { border:2.5px solid var(--line); border-radius:22px; padding:26px 18px 20px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .qr-box.primary { border-color:var(--ink); }
+  .qr-img { width:270px; height:270px; display:grid; place-items:center; }
+  .qr-img img { width:270px; height:270px; object-fit:contain; display:block; }
+  .qr-cap { font-size:19pt; font-weight:800; line-height:1.1; letter-spacing:-0.01em; }
+  .qr-sub { font-size:12.5pt; color:var(--ink-3); margin-top:-4px; }
+  .foot { margin-top:auto; padding-top:20px; font-size:13pt; color:var(--ink-3); }
+  @page { size:A4; margin:0; }
+  @media print {
+    html, body { background:#fff; }
+    .page { width:210mm; height:297mm; margin:0; box-shadow:none; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .toolbar { display:none !important; }
+  }
+  .toolbar { max-width:210mm; margin:20px auto 0; display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-size:13px; color:var(--ink-2); }
+  .toolbar button { font-family:inherit; font-weight:600; font-size:13px; background:var(--ink); color:#fff; border:none; padding:9px 16px; border-radius:9px; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">Печать / сохранить в PDF</button><span>Файл 2: только QR и про чат. Для приметного места.</span></div>
+<div class="page">
+  <div class="badge">ЧАТ НАШЕГО ПОДЪЕЗДА</div>
+  <h1>Заходи<br>к соседям</h1>
+  <div class="addr">ул. Авиаконструктора Миля, 19 · 1-й подъезд</div>
+  <div class="lead">Наведи камеру телефона на QR-код и <b>вступай в чат</b></div>
+  <div class="qr-row">
+    <div class="qr-box primary">
+      <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
+      <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
+    </div>
+    <div class="qr-box">
+      <div class="qr-img"><img src="site-qr.png" alt="QR сайт"></div>
+      <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
+    </div>
+  </div>
+  <div class="foot">Только для жителей 1-го подъезда · без рекламы и спама</div>
+</div>
+</body>
+</html>

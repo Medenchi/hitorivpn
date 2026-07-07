@@ -1,9 +1,10 @@
-name: Build flyer PDF
+name: Build PDFs
 
 on:
   push:
     paths:
-      - 'flyer.html'
+      - '1-cards.html'
+      - '2-qr.html'
       - 'poster.html'
       - 'site-qr.png'
       - 'tg-qr.png'
@@ -29,19 +30,21 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Render PDFs
         run: |
-          node .github/scripts/print.js flyer.html flyer.pdf
+          node .github/scripts/print.js 1-cards.html 1-cards.pdf
+          node .github/scripts/print.js 2-qr.html 2-qr.pdf
           node .github/scripts/print.js poster.html poster.pdf
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: flyers-pdf
+          name: pdfs
           path: |
-            flyer.pdf
+            1-cards.pdf
+            2-qr.pdf
             poster.pdf
       - name: Commit PDFs back to repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add flyer.pdf poster.pdf
+          git add 1-cards.pdf 2-qr.pdf poster.pdf
           git diff --staged --quiet || git commit -m "build: regenerate PDFs [skip ci]"
           git push
