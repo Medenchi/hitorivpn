@@ -44,8 +44,8 @@
   .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 10px; }
   .qr-box { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 6px 7px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .qr-box.primary { border-color: var(--ink); }
-  .qr-img { width: 92px; height: 92px; display: grid; place-items: center; }
-  .qr-img img, .qr-img canvas { width: 92px !important; height: 92px !important; }
+  .qr-img { width: 96px; height: 96px; display: grid; place-items: center; }
+  .qr-img img, .qr-img canvas { width: 96px !important; height: 96px !important; }
   .qr-cap { font-size: 8pt; font-weight: 700; line-height: 1.15; }
   .qr-sub { font-size: 6.8pt; color: var(--ink-3); margin-top: -3px; }
   .howto { background: #f4f5f8; border-radius: 9px; padding: 8px 9px; font-size: 7.6pt; line-height: 1.42; color: var(--ink-2); }
@@ -69,7 +69,7 @@
 <body>
 <div class="toolbar">
   <button onclick="window.print()">Печать / сохранить в PDF</button>
-  <span>Ссылки меняются в начале тега &lt;script&gt;: <code>SITE_URL</code> и <code>TG_URL</code></span>
+  <span>Сайтовый QR берётся из <code>SITE_URL</code>. QR Telegram — из файла <code>tg-qr.png</code> рядом с этим файлом.</span>
 </div>
 <div class="sheet" id="sheet"></div>
 <template id="card-tpl">
@@ -90,7 +90,7 @@
         <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
       </div>
       <div class="qr-box primary">
-        <div class="qr-img qr-tg"></div>
+        <div class="qr-img"><img src="tg-qr.png" alt="QR Telegram"></div>
         <div><div class="qr-cap">Прямой вход</div><div class="qr-sub">в Telegram</div></div>
       </div>
     </div>
@@ -104,17 +104,16 @@
 <script>
   // ====== МЕНЯЙ ЗДЕСЬ ======
   const SITE_URL = "https://medenchi.github.io/hitorivpn/";
-  const TG_URL   = "https://t.me/"; // <-- вставь прямую ссылку на чат подъезда
+  // QR Telegram — это файл tg-qr.png рядом с flyer.html (просто перетащи свою картинку в репозиторий).
   // =========================
   const sheet = document.getElementById('sheet');
   const tpl = document.getElementById('card-tpl');
   for (let i = 0; i < 4; i++) sheet.appendChild(tpl.content.cloneNode(true));
   function makeQR(el, text) {
     if (!el) return;
-    new QRCode(el, { text: text, width: 92, height: 92, colorDark: "#14161c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+    new QRCode(el, { text: text, width: 96, height: 96, colorDark: "#14161c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
   }
   document.querySelectorAll('.qr-site').forEach(el => makeQR(el, SITE_URL));
-  document.querySelectorAll('.qr-tg').forEach(el => makeQR(el, TG_URL));
 </script>
 </body>
 </html>
