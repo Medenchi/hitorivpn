@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
 <style>
   :root {
     --ink: #14161c;
@@ -45,7 +44,7 @@
   .qr-box { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 6px 7px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .qr-box.primary { border-color: var(--ink); }
   .qr-img { width: 96px; height: 96px; display: grid; place-items: center; }
-  .qr-img img, .qr-img canvas { width: 96px !important; height: 96px !important; }
+  .qr-img img { width: 96px; height: 96px; object-fit: contain; display: block; }
   .qr-cap { font-size: 8pt; font-weight: 700; line-height: 1.15; }
   .qr-sub { font-size: 6.8pt; color: var(--ink-3); margin-top: -3px; }
   .howto { background: #f4f5f8; border-radius: 9px; padding: 8px 9px; font-size: 7.6pt; line-height: 1.42; color: var(--ink-2); }
@@ -69,7 +68,7 @@
 <body>
 <div class="toolbar">
   <button onclick="window.print()">Печать / сохранить в PDF</button>
-  <span>Сайтовый QR берётся из <code>SITE_URL</code>. QR Telegram — из файла <code>tg-qr.png</code> рядом с этим файлом.</span>
+  <span>Оба QR — картинки из репы: <code>site-qr.png</code> (сайт) и <code>tg-qr.png</code> (Telegram). PDF собирается сам через GitHub Actions.</span>
 </div>
 <div class="sheet" id="sheet"></div>
 <template id="card-tpl">
@@ -86,7 +85,7 @@
     </ul>
     <div class="qr-row">
       <div class="qr-box">
-        <div class="qr-img qr-site"></div>
+        <div class="qr-img"><img src="site-qr.png" alt="QR сайт"></div>
         <div><div class="qr-cap">Если лагает ТГ</div><div class="qr-sub">Инструкция и VPN</div></div>
       </div>
       <div class="qr-box primary">
@@ -102,18 +101,9 @@
   </div>
 </template>
 <script>
-  // ====== МЕНЯЙ ЗДЕСЬ ======
-  const SITE_URL = "https://medenchi.github.io/hitorivpn/";
-  // QR Telegram — это файл tg-qr.png рядом с flyer.html (просто перетащи свою картинку в репозиторий).
-  // =========================
   const sheet = document.getElementById('sheet');
   const tpl = document.getElementById('card-tpl');
   for (let i = 0; i < 4; i++) sheet.appendChild(tpl.content.cloneNode(true));
-  function makeQR(el, text) {
-    if (!el) return;
-    new QRCode(el, { text: text, width: 96, height: 96, colorDark: "#14161c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
-  }
-  document.querySelectorAll('.qr-site').forEach(el => makeQR(el, SITE_URL));
 </script>
 </body>
 </html>
